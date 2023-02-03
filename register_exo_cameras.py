@@ -27,8 +27,6 @@ if __name__ == "__main__":
     assert os.path.exists(exo_dir), exo_dir
     subs = sorted(os.listdir(exo_dir))
     subs = [sub for sub in subs if sub != 'mobile']
-    calib_file = os.path.join(args.calib_dir, 'exo_gp.xml')
-    assert os.path.exists(calib_file), calib_file
 
     save_dir = os.path.join(base_folder, args.save_dir)
     save_file = os.path.join(save_dir, '{}.psx'.format(os.path.basename(base_folder)))
@@ -42,6 +40,9 @@ if __name__ == "__main__":
     print('\t Registering static exo cameras')
     for cam in subs:
         print('\t Registering static exo cameras: {}'.format(cam))
+        # calibration file
+        calib_file = os.path.join(args.calib_dir, '{}.xml'.format(cam))
+        assert os.path.exists(calib_file), calib_file
         # prepare file list
         folder_path = os.path.join(exo_dir, cam, 'calib_images')
         assert os.path.exists(folder_path), folder_path

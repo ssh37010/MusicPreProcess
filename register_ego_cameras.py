@@ -12,6 +12,8 @@ parser.add_argument('--save_dir', type=str, default='outputs/Metashape',
                     help="folder for save files")
 parser.add_argument('--ego_video_dir', type=str, default='outputs/video_clips/gp05',
                     help="folder for ego video clips")
+parser.add_argument('--ego_name', type=str, default='gp05',
+                    help="ego camera name")
 parser.add_argument('--batch_size', type=int, default=500,
                     help="max number of images for registration")
 parser.add_argument('--prefix', type=str, default='ego',
@@ -33,7 +35,7 @@ if __name__ == "__main__":
     doc.open(save_file)
     chunk = doc.chunk
 
-    calib_file = os.path.join(args.calib_dir, 'SuperView_gp.xml')
+    calib_file = os.path.join(args.calib_dir, '{}.xml'.format(args.ego_name))
     assert os.path.exists(calib_file), calib_file
 
     ego_video_dir = os.path.join(args.path, args.ego_video_dir)

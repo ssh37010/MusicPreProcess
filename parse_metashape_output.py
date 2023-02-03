@@ -5,7 +5,7 @@ import json
 import xml.etree.ElementTree as ET
 
 parser = argparse.ArgumentParser('Music data prepocess')
-parser.add_argument('--path', type=str, default='/media/shan/Volume1/Data/Music/SessionDate200123_Piano',
+parser.add_argument('--path', type=str, default='/media/shan/Volume1/Data/Music/SessionDate200123_Guitar1',
                     help="root path for a single data collection trial")
 parser.add_argument('--calib_dir', type=str, default='/media/shan/Volume1/Data/Music/calib_files',
                     help="folder for calibration files")
@@ -55,24 +55,24 @@ if __name__ == "__main__":
         os.makedirs(os.path.join(args.path, args.save_dir), exist_ok=True)
 
         # write instrinsics
-        dict_file = {'names': exo_subs}
-        instri_file = os.path.join(args.calib_dir, 'exo_gp.xml')
-        assert os.path.exists(instri_file), instri_file
-        tree = ET.parse(instri_file)
-        root = tree.getroot()
-        for child in root:
-            dict_file[child.tag] = child.text
-        intri_file = os.path.join(args.path, args.save_dir, '{}_intri.json'.format(args.prefix))
-        with open(intri_file, 'w') as file:
-            json.dump(dict_file, file, indent=4)
+        for sub in exo_subs:
+            instri_file = os.path.join(args.calib_dir, '{}.xml'.format(sub))
+            assert os.path.exists(instri_file), instri_file
+            tree = ET.parse(instri_file)
+            root = tree.getroot()
+            params = {}
+            for child in root:
+                params[child.tag] = child.text
+            intri_file = os.path.join(args.path, args.save_dir, '{}_intri.json'.format(sub))
+            with open(intri_file, 'w') as file:
+                json.dump(params, file, indent=4)
 
         # write extrinsics
-        extri_file = os.path.join(args.path, args.save_dir, '{}_extri.json'.format(args.prefix))
-        dict_file = {'names': exo_subs}
         for sub in exo_subs:
-            dict_file[sub] = {'T_camera_world':extri_data[sub].tolist()}
-        with open(extri_file, 'w') as file:
-            json.dump(dict_file, file, indent=4)
+            extri_file = os.path.join(args.path, args.save_dir, '{}_extri.json'.format(sub))
+            dict_file = {'T_camera_world':extri_data[sub].tolist()}
+            with open(extri_file, 'w') as file:
+                json.dump(dict_file, file, indent=4)
 
 
     if args.prefix == 'ego':
@@ -110,20 +110,20 @@ if __name__ == "__main__":
             os.makedirs(os.path.join(args.path, args.save_dir), exist_ok=True)
 
             # write instrinsics
-            dict_file = {'names': args.ego_name}
-            instri_file = os.path.join(args.calib_dir, 'SuperView_gp.xml')
+            instri_file = os.path.join(args.calib_dir, '{}.xml'.format(args.ego_name))
             assert os.path.exists(instri_file), instri_file
             tree = ET.parse(instri_file)
             root = tree.getroot()
+            params = {}
             for child in root:
-                dict_file[child.tag] = child.text
-            intri_file = os.path.join(args.path, args.save_dir, '{}_intri.json'.format(args.prefix))
+                params[child.tag] = child.text
+            intri_file = os.path.join(args.path, args.save_dir, '{}_intri.json'.format(args.ego_name))
             with open(intri_file, 'w') as file:
-                json.dump(dict_file, file, indent=4)
+                json.dump(params, file, indent=4)
 
             # write extrinsics
-            extri_file = os.path.join(args.path, args.save_dir, '{}_extri_{}.json'.format(args.prefix, video[:10]))
-            dict_file = {'names': args.ego_name}
+            dict_file = {}
+            extri_file = os.path.join(args.path, args.save_dir, '{}_extri_{}.json'.format(args.ego_name, video[:10]))
             for key in extri_data.keys():
                 dict_file[key] = {'T_camera_world': extri_data[key].tolist()}
             with open(extri_file, 'w') as file:

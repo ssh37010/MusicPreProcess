@@ -8,6 +8,8 @@ parser.add_argument('--path', type=str, default='/media/shan/Volume1/Data/Music/
                     help="root path for a single data collection trial")
 parser.add_argument('--calib_dir', type=str, default='/media/shan/Volume1/Data/Music/calib_files',
                     help="folder for calibration files")
+parser.add_argument('--use_cam', type=str, default='gp01',
+                    help="define the came")
 # parser.add_argument('--license_path', type=str, default='/home/chengp/Documents/metashape-pro/metashape.lic',
 #                     help="metashape license file path")
 args = parser.parse_args()
@@ -25,7 +27,7 @@ if __name__ == "__main__":
     base_folder = args.path
     image_dir = os.path.join(base_folder, 'Exo', 'mobile', 'calib_images')
     assert os.path.exists(image_dir), image_dir
-    calib_file = os.path.join(args.calib_dir, 'exo_gp.xml')
+    calib_file = os.path.join(args.calib_dir, '{}.xml'.format(args.use_cam))
     assert os.path.exists(calib_file), calib_file
 
     save_dir = os.path.join(base_folder, 'outputs', 'Metashape')
