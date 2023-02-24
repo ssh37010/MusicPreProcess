@@ -5,7 +5,7 @@ import json
 import xml.etree.ElementTree as ET
 
 parser = argparse.ArgumentParser('Music data prepocess')
-parser.add_argument('--path', type=str, default='/media/shan/Volume1/Data/Music/SessionDate200123_Guitar1',
+parser.add_argument('--path', type=str, default='/media/shan/Volume1/Data/Music/0217_Violin',
                     help="root path for a single data collection trial")
 parser.add_argument('--calib_dir', type=str, default='/media/shan/Volume1/Data/Music/calib_files',
                     help="folder for calibration files")
@@ -13,7 +13,7 @@ parser.add_argument('--metashape_dir', type=str, default='outputs/Metashape',
                     help="folder for metashape results")
 parser.add_argument('--save_dir', type=str, default='outputs/calib_results',
                     help="folder for results")
-parser.add_argument('--prefix', type=str, default='ego',
+parser.add_argument('--prefix', type=str, default='exo',
                     help="ego or exo cameras")
 parser.add_argument('--ego_name', type=str, default='gp05',
                     help="ego camera name")

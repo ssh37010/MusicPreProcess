@@ -2,12 +2,12 @@ import argparse
 import os
 
 parser = argparse.ArgumentParser('Music data prepocess')
-parser.add_argument('--path', type=str, default='/media/shan/Volume1/Data/Music/SessionDate200123_Guitar1',
+parser.add_argument('--path', type=str, default='/media/shan/Volume1/Data/Music/0217_Violin',
                     help="root path for a single data collection trial")
 
-parser.add_argument('--decode_mobile', type=bool, default=False,
+parser.add_argument('--decode_mobile', type=bool, default=True,
                     help="if decode mobile folder")
-parser.add_argument('--decode_static_exo', type=bool, default=False,
+parser.add_argument('--decode_exo', type=bool, default=True,
                     help="if decode static exo folders")
 parser.add_argument('--decode_ego', type=bool, default=True,
                     help="if decode ego folders")
@@ -19,7 +19,7 @@ parser.add_argument('--exo_width', type=int, default=1920,
                     help="width for decoded exo images")
 parser.add_argument('--exo_height', type=int, default=1080,
                     help="width for decoded exo images")
-parser.add_argument('--ego_width', type=int, default=1440,
+parser.add_argument('--ego_width', type=int, default=1920,
                     help="width for decoded ego images")
 parser.add_argument('--ego_height', type=int, default=1080,
                     help="width for decoded ego images")
@@ -54,7 +54,7 @@ if __name__ == "__main__":
         os.system(cmd)
 
     # decode images for registering static exo cameras
-    if args.decode_static_exo:
+    if args.decode_exo:
         print('\t Decoding images for exo cameras calibration')
         exo_dir = os.path.join(args.path, 'Exo')
         subs = sorted(os.listdir(exo_dir))

@@ -4,7 +4,7 @@ import argparse
 
 
 parser = argparse.ArgumentParser('Music data prepocess')
-parser.add_argument('--path', type=str, default='/media/shan/Volume1/Data/Music/SessionDate200123_Guitar1',
+parser.add_argument('--path', type=str, default='/media/shan/Volume1/Data/Music/0217_Violin',
                     help="root path for a single data collection trial")
 parser.add_argument('--calib_dir', type=str, default='/media/shan/Volume1/Data/Music/calib_files',
                     help="folder for calibration files")

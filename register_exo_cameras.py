@@ -4,7 +4,7 @@ import argparse
 
 
 parser = argparse.ArgumentParser('Music data prepocess')
-parser.add_argument('--path', type=str, default='/media/shan/Volume1/Data/Music/SessionDate200123_Guitar1',
+parser.add_argument('--path', type=str, default='/media/shan/Volume1/Data/Music/0217_Violin',
                     help="root path for a single data collection trial")
 parser.add_argument('--calib_dir', type=str, default='/media/shan/Volume1/Data/Music/calib_files',
                     help="folder for calibration files")
@@ -69,9 +69,9 @@ if __name__ == "__main__":
             if camera.label[:4] == cam:
                 camera.sensor = sensor
                 camera.group = group
-        # match points and align camera
-        chunk.matchPhotos(downscale=0, reference_preselection=False, keep_keypoints=True)
-        chunk.alignCameras(reset_alignment=False)
+    # match points and align camera
+    chunk.matchPhotos(downscale=0, reference_preselection=False, keep_keypoints=True)
+    chunk.alignCameras(reset_alignment=False)
 
     # save project
     doc.save(os.path.join(base_folder, save_file))
